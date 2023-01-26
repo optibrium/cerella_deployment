@@ -61,7 +61,7 @@ variable "coredns_addon_version" {
 }
 
 variable "cerella_version" {
-  default = "1.0.41"
+  default = "1.0.49"
 }
 
 variable "deploy_cerella" {
