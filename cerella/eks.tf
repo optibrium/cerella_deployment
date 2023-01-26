@@ -9,7 +9,7 @@ resource "kubernetes_config_map" "aws_auth_configmap" {
 
   data = {
     mapRoles = <<AUTH
-- rolearn: ${data.terraform_remote_state.cerella_infra.outputs.worker_nodes_iam_role_arn}
+- rolearn: ${var.worker_nodes_iam_role_arn}
   username: system:node:{{EC2PrivateDNSName}}
   groups:
     - system:bootstrappers

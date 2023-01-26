@@ -95,6 +95,18 @@ variable "registry_password" {
 variable "registry_username" {
 }
 
+variable "external_secret_iam_role_arn" {
+  type = string
+}
+
+variable "ingest_irsa_iam_role_name" {
+  type = string
+}
+
+variable "worker_nodes_iam_role_arn" {
+  type = string
+}
+
 # variable "right-availability-zone" {
 #   default = "eu-west-1a"
 #   type    = string

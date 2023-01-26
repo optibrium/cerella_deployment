@@ -221,7 +221,7 @@ resource "helm_release" "external_secrets" {
 
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = data.terraform_remote_state.cerella_infra.outputs.external_secret_iam_role_arn
+    value = var.external_secret_iam_role_arn
   }
 }
 
@@ -258,7 +258,7 @@ resource "helm_release" "cerella_blue" {
   chart      = "cerella_blue"
   version    = var.cerella_version
   depends_on = [helm_release.cerella_elasticsearch, helm_release.external_secrets]
-  values     =  var.cerella_blue_override_file_name != "" ? ["${file("helm-override-values/${var.cerella_blue_override_file_name}")}"] : []
+  values     = var.cerella_blue_override_file_name != "" ? ["${file("helm-override-values/${var.cerella_blue_override_file_name}")}"] : []
   set {
     name  = "domain"
     value = var.domain
@@ -275,7 +275,7 @@ resource "helm_release" "cerella_blue" {
 
   set {
     name  = "ingest_iam_role_name"
-    value = data.terraform_remote_state.cerella_infra.outputs.ingest_irsa_iam_role_name
+    value = var.ingest_irsa_iam_role_name
   }
 }
 
@@ -304,6 +304,6 @@ resource "helm_release" "cerella_green" {
 
   set {
     name  = "ingest_iam_role_name"
-    value = data.terraform_remote_state.cerella_infra.outputs.ingest_irsa_iam_role_name
+    value = var.ingest_irsa_iam_role_name
   }
 }
