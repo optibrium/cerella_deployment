@@ -47,7 +47,7 @@ variable "worker_nodes_iam_role_arn" {
 }
 
 variable "cerella_version" {
-  default = "1.0.49"
+  default = "1.0.50"
 }
 
 variable "deploy_cerella" {
