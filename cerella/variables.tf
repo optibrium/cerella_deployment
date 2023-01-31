@@ -45,20 +45,6 @@ variable "ingest_irsa_iam_role_name" {
 variable "worker_nodes_iam_role_arn" {
   type = string
 }
-variable "kube_proxy_addon_version" {
-  default = "v1.22.11-eksbuild.2"
-  type    = string
-}
-
-variable "vpc_cni_addon_version" {
-  default = "v1.11.3-eksbuild.1"
-  type    = string
-}
-
-variable "coredns_addon_version" {
-  default = "v1.8.7-eksbuild.1"
-  type    = string
-}
 
 variable "cerella_version" {
   default = "1.0.49"
@@ -66,10 +52,6 @@ variable "cerella_version" {
 
 variable "deploy_cerella" {
   default = false
-}
-
-variable "enable_eks_addons" {
-  default = true
 }
 
 variable "elasticsearch_override_file_name" {
