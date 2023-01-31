@@ -1,3 +1,4 @@
+data "aws_caller_identity" "current" {}
 resource "helm_release" "ingress" {
   name       = "ingress"
   repository = "https://helm.nginx.com/stable"
@@ -296,14 +297,20 @@ resource "helm_release" "cerella_green" {
     name  = "aws_region"
     value = var.region
   }
-
   set {
     name  = "aws_account_id"
     value = data.aws_caller_identity.current.account_id
   }
-
   set {
     name  = "ingest_iam_role_name"
     value = var.ingest_irsa_iam_role_name
+  }
+  set {
+    name  = "ingest_user_name"
+    value = var.ingest_user_name
+  }
+  set {
+    name  = "ingest_user_password"
+    value = var.ingest_user_password
   }
 }

@@ -71,3 +71,11 @@ variable "cerella_green_override_file_name" {
   type    = string
   default = ""
 }
+
+variable "ingest_user_name" {
+  type = string
+}
+
+variable "ingest_user_password" {
+  type = string
+}
