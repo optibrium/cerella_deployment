@@ -28,10 +28,12 @@ variable "region" {
   type = string
 }
 
-variable "registry_password" {
+variable "registry_username" {
+  type = string
 }
 
-variable "registry_username" {
+variable "registry_password" {
+  type = string
 }
 
 variable "external_secret_iam_role_arn" {
