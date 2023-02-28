@@ -262,6 +262,14 @@ resource "helm_release" "cerella_cloudwatch" {
   chart      = "aws-for-fluent-bit"
   version    = "0.1.23"
   set {
+    name  = "cloudwatch.region"
+    value = var.region
+  }
+  set {
+    name  = "cloudwatch.logGroupName"
+    value = "/aws/eks/cerella/${var.cluster_name}/logs"
+  }
+  set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = "arn:aws:iam::064203597492:role/cloudwatch-agent-testing"
   }
