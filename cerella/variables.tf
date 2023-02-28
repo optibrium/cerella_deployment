@@ -1,4 +1,3 @@
-
 variable "cluster_autoscaler_version" {
   default = "v1.22.3"
 }
@@ -53,6 +52,10 @@ variable "cerella_version" {
 }
 
 variable "deploy_cerella" {
+  default = false
+}
+
+variable "deploy_cloudwatch" {
   default = false
 }
 

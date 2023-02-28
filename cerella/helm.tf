@@ -245,10 +245,37 @@ resource "helm_release" "cerella_elasticsearch" {
   chart      = "cerella_elasticsearch"
   version    = var.cerella_version
   depends_on = [helm_release.cerella_eck]
-  values     = var.elasticsearch_override_file_name != "" ? ["${file("helm-override-values/${var.elasticsearch_override_file_name}")}"] : []
+  values     = var.elasticsearch_override_file_name != "" ? [
+    "${file("helm-override-values/${var.elasticsearch_override_file_name}")}"
+  ] : []
   set {
     name  = "domain"
     value = var.domain
+  }
+}
+
+resource "helm_release" "cerella_cloudwatch" {
+  count      = var.deploy_cloudwatch ? 1 : 0
+  name       = "aws-for-fluent-bit"
+  namespace  = "kube-system"
+  repository = "https://aws.github.io/eks-charts"
+  chart      = "aws-for-fluent-bit"
+  version    = "0.1.23"
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = "arn:aws:iam::064203597492:role/cloudwatch-agent-testing"
+  }
+  set {
+    name  = "firehose.enabled"
+    value = "false"
+  }
+  set {
+    name  = "kinesis.enabled"
+    value = "false"
+  }
+  set {
+    name  = "elasticsearch.enabled"
+    value = "false"
   }
 }
 
@@ -259,7 +286,9 @@ resource "helm_release" "cerella_blue" {
   chart      = "cerella_blue"
   version    = var.cerella_version
   depends_on = [helm_release.cerella_elasticsearch, helm_release.external_secrets]
-  values     = var.cerella_blue_override_file_name != "" ? ["${file("helm-override-values/${var.cerella_blue_override_file_name}")}"] : []
+  values     = var.cerella_blue_override_file_name != "" ? [
+    "${file("helm-override-values/${var.cerella_blue_override_file_name}")}"
+  ] : []
   set {
     name  = "domain"
     value = var.domain
@@ -287,7 +316,9 @@ resource "helm_release" "cerella_green" {
   chart      = "cerella_green"
   version    = var.cerella_version
   depends_on = [helm_release.cerella_elasticsearch, helm_release.external_secrets]
-  values     = var.cerella_green_override_file_name != "" ? ["${file("helm-override-values/${var.cerella_green_override_file_name}")}"] : []
+  values     = var.cerella_green_override_file_name != "" ? [
+    "${file("helm-override-values/${var.cerella_green_override_file_name}")}"
+  ] : []
 
   set {
     name  = "domain"
