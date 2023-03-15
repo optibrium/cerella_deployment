@@ -229,6 +229,7 @@ resource "helm_release" "external_secrets" {
 resource "helm_release" "aws_efs_csi_driver" {
   count      = var.efs_iam_role_arn != "" && var.efs_fs_id != "" ? 1 : 0
   name       = "aws-efs-csi-driver"
+  version    = "2.3.8"
   repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver/"
   chart      = "aws-efs-csi-driver"
   namespace  = "kube-system"
@@ -256,6 +257,7 @@ resource "helm_release" "aws_efs_csi_driver" {
   set {
     name  = "storageClasses[0].parameters.directoryPerms"
     value = "700"
+    type  = string
   }
 }
 
