@@ -84,3 +84,7 @@ variable "ingest_user_name" {
 variable "ingest_user_password" {
   type = string
 }
+
+variable "cloudwatch_role_arn" {
+  default = ""
+}

@@ -271,7 +271,7 @@ resource "helm_release" "cerella_cloudwatch" {
   }
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = "arn:aws:iam::064203597492:role/cloudwatch-agent-testing"
+    value = var.cloudwatch_role_arn
   }
   set {
     name  = "firehose.enabled"
