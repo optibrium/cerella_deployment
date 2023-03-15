@@ -226,6 +226,40 @@ resource "helm_release" "external_secrets" {
   }
 }
 
+resource "helm_release" "aws_efs_csi_driver" {
+  count      = var.efs_iam_role_arn != "" && var.efs_fs_id != "" ? 1 : 0
+  name       = "aws-efs-csi-driver"
+  repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver/"
+  chart      = "aws-efs-csi-driver"
+  namespace  = "kube-system"
+
+  set {
+    name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = var.efs_iam_role_arn
+  }
+  set {
+    name  = "node.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = var.efs_iam_role_arn
+  }
+  set {
+    name  = "storageClasses[0].name"
+    value = "efs"
+  }
+  set {
+    name  = "storageClasses[0].parameters.provisioningMode"
+    value = "efs-ap"
+  }
+  set {
+    name  = "storageClasses[0].parameters.fileSystemId"
+    value = var.efs_fs_id
+  }
+  set {
+    name  = "storageClasses[0].parameters.directoryPerms"
+    value = "700"
+  }
+}
+
+
 resource "helm_release" "cerella_eck" {
   count      = var.deploy_cerella ? 1 : 0
   name       = "eck"

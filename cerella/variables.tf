@@ -39,6 +39,14 @@ variable "external_secret_iam_role_arn" {
   type = string
 }
 
+variable "efs_iam_role_arn" {
+  default = ""
+}
+
+variable "efs_fs_id" {
+  default = ""
+}
+
 variable "ingest_irsa_iam_role_name" {
   type = string
 }
