@@ -43,10 +43,6 @@ variable "ingest_irsa_iam_role_name" {
   type = string
 }
 
-variable "worker_nodes_iam_role_arn" {
-  type = string
-}
-
 variable "cerella_version" {
   default = "1.0.50"
 }
