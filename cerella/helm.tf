@@ -257,7 +257,7 @@ resource "helm_release" "aws_efs_csi_driver" {
   set {
     name  = "storageClasses[0].parameters.directoryPerms"
     value = "700"
-    type  = string
+    type  = "string"
   }
 }
 
