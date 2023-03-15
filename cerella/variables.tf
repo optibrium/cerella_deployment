@@ -44,7 +44,7 @@ variable "ingest_irsa_iam_role_name" {
 }
 
 variable "cerella_version" {
-  default = "1.0.50"
+  default = "1.0.52"
 }
 
 variable "deploy_cerella" {
